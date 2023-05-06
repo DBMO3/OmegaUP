@@ -1,27 +1,33 @@
 #include <iostream>
 using namespace std;
 
-int main(){
-	int a,b;
-	cin >> a >> b;
+int cycleLength(int n) {
+    int length = 1;
+    while (n != 1) {
+        if (n % 2 == 0) {
+            n /= 2;
+        } else {
+            n = n * 3 + 1;
+        }
+        length++;
+    }
+    return length;
+}
 
-	int max = 0;
-	for(int i = a ; i <= b; i++){
-		int n = i;
-		int cycle_lenght = 1;
-		while(n != 1){
-			if(n%2 == 0){
-				n /= 2;
-			} else {
-				n = (3*n) + 1;
-			}
-			cycle_lenght++;
-		}
+int maxCycleLength(int a, int b) {
+    int max_length = 0;
+    for (int i = a; i <= b; i++) {
+        int length = cycleLength(i);
+        if (length > max_length) {
+            max_length = length;
+        }
+    }
+    return max_length;
+}
 
-		if(cycle_lenght > max){
-			max = cycle_lenght;
-		}
-	}
-
-	cout << max << endl;
+int main() {
+    int a, b;
+    cin >> a >> b;
+    cout << maxCycleLength(a, b) << endl;
+    return 0;
 }
